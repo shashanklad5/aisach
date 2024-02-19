@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        Shoping Item Application
+    </title>
+
+    <head>
+        <script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+    </script>
+
+    <script>
+        var app=angular.module("myApp",[]);
+        app.controller("myCntrl",function($scope)
+        {
+            $scope.shopingItems=['Apple','Mango']
+            $scope.addItem=function()
+            {
+                if($scope.newItem && $scope.shopingItems.indexOf($scope.newItem)==-1)
+                {
+                    $scope.shopingItems.push($scope.newItem)
+                    $scope.newItem=""
+                }
+                else
+                {
+                    alert("Please enter an item to add")
+                }                
+            }
+            $scope.removeItem=function()
+            {
+                if($scope.shopingItems.indexOf($scope.selectItem)==-1)
+                {
+                    alert("Please select an item to remove")
+                }
+                else{
+                    var index=$scope.shopingItems.indexOf($scope.selectItem)
+                    $scope.shopingItems.splice(index,1)
+                    $scope.selectItem=""
+                }
+            }
+        });
+        </script>
+
+        <body ng-app="myApp">
+            <div ng-controller="myCntrl">
+                <h2>Shopping Application</h2>
+                <h4>List of Shoping Items</h4>
+                <table border="1">
+                    <tr>
+                        <th>SLNO</th>
+                        <th>Item</th>
+                    </tr>
+                    <tr ng-repeat="items in shopingItems">
+                        <td>{{$index+1}}</td>
+                        <td>{{items}}</td>
+                    </tr>
+                </table>
+                <br/>
+
+                <div>
+                    Enter an Item to Add:<input type="text" ng-model="newItem">
+                    <button ng-click="addItem()">Add Item</button>
+                </div>
+
+                <div>
+                    Select an Item to Remove:
+                    <select ng-model="selectItem" ng-options="item for item in shopingItems"></select>
+                    <button ng-click="removeItem()">Remove Item</button>
+                </div>
+            </div>
+        </body>
+    </head>
+</html>
